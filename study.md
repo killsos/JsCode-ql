@@ -2759,3 +2759,394 @@ var hasAge = Boolean(age);
 var hasAge = !!age;
 
 ```
+
+## 命名规则
+
+### 23.1 避免单个字母
+
+```javascript
+
+// bad
+function q() {
+  // ...
+}
+
+// good
+function query() {
+  // ...
+}
+
+```
+
+### 23.2 用驼峰命名 对象 函数 和实例
+
+```javascript
+
+// bad
+const OBJEcttsssss = {};
+const this_is_my_object = {};
+function c() {}
+
+// good
+const thisIsMyObject = {};
+function thisIsMyFunction() {}
+
+```
+
+### 23.3 使用大驼峰命名构造器函数或者类
+
+```javascript
+
+// bad
+function user(options) {
+  this.name = options.name;
+}
+
+const bad = new user({
+  name: 'nope',
+});
+
+// good
+class User {
+  constructor(options) {
+    this.name = options.name;
+  }
+}
+
+const good = new User({
+  name: 'yup',
+});
+
+```
+### 23.4 不要使用下划线前/后缀
+
+> 为什么？JavaScript 并没有私有属性或私有方法的概念。虽然使用下划线是表示「私有」的一种共识，但实际上这些属性是完全公开的，它本身就是你公共接口的一部分。这种习惯或许会导致开发者错误的认为改动它不会造成破坏或者不需要去测试。长话短说：如果你想要某处为「私有」，它必须不能是显式提出的
+
+```javascript
+
+this.__firstName__ = 'Panda';
+this.firstName_ = 'Panda';
+this._firstName = 'Panda';
+
+// good
+this.firstName = 'Panda'
+
+```
+
+### 23.5 不要保存 this 的引用。使用 Function#bindH或者箭头函数
+
+```javascript
+
+// bad
+function foo() {
+  const self = this;
+  return function () {
+    console.log(self);
+  };
+}
+
+// bad
+function foo() {
+  const that = this;
+  return function () {
+    console.log(that);
+  };
+}
+
+// good
+function foo() {
+  return () => {
+    console.log(this);
+  };
+}
+
+```
+
+### 23.6 文件名应当准确与export default 匹配
+
+> A base filename should exactly match the name of its default export.
+
+```javascript
+
+// file 1 contents
+class CheckBox {
+  // ...
+}
+export default CheckBox;
+
+// file 2 contents
+export default function fortyTwo() { return 42; }
+
+// file 3 contents
+export default function insideDirectory() {}
+
+// in some other file
+// bad
+import CheckBox from './checkBox'; // PascalCase import/export, camelCase filename
+import FortyTwo from './FortyTwo'; // PascalCase import/filename, camelCase export
+import InsideDirectory from './InsideDirectory'; // PascalCase import/filename, camelCase export
+
+// bad
+import CheckBox from './check_box'; // PascalCase import/export, snake_case filename
+import forty_two from './forty_two'; // snake_case import/filename, camelCase export
+import inside_directory from './inside_directory'; // snake_case import, camelCase export
+import index from './inside_directory/index'; // requiring the index file explicitly
+import insideDirectory from './insideDirectory/index'; // requiring the index file explicitly
+
+// good
+import CheckBox from './CheckBox'; // PascalCase export/import/filename
+import fortyTwo from './fortyTwo'; // camelCase export/import/filename
+import insideDirectory from './insideDirectory'; // camelCase export/import/directory name/implicit "index"
+// ^ supports both insideDirectory.js and insideDirectory/index.js
+
+```
+
+### 23.7 使用小驼峰命名 export default funtion
+
+> Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
+
+```javascript
+
+function makeStyleGuide() {
+  // ...
+}
+
+export default makeStyleGuide;
+
+```
+### 23.8  使用大驼峰命名 构造器 类 单例 函数库 基于对象
+
+> Use PascalCase when you export a constructor / class / singleton / function library / bare object.
+
+```javascript
+
+const AirbnbStyleGuide = {
+  es6: {
+  },
+};
+
+export default AirbnbStyleGuide;
+
+```
+### 23.9 缩写词应该全部大写 或者 全部小写
+
+> Acronyms and initialisms should always be all capitalized, or all lowercased.
+
+```javascript
+
+// bad
+import SmsContainer from './containers/SmsContainer';
+
+// bad
+const HttpRequests = [
+  // ...
+];
+
+// good
+import SMSContainer from './containers/SMSContainer';
+
+// good
+const HTTPRequests = [
+  // ...
+];
+
+// also good
+const httpRequests = [
+  // ...
+];
+
+// best
+import TextMessageContainer from './containers/TextMessageContainer';
+
+// best
+const requests = [
+  // ...
+];
+
+```
+
+### 23.10 给函数表达式命名。这在做堆栈轨迹时很有帮助
+
+```javacript
+
+// bad
+var log = function (msg) {
+  console.log(msg);
+};
+
+// good
+var log = function log(msg) {
+  console.log(msg);
+};
+
+```
+
+## 存取器
+
+### 24.1 属性的存取函数不是必须的
+
+### 24.2 不要setter/getter 会引起非期待的副作用 并很难测试 维护 发现 相反 使用getval setVal
+
+```javascript
+
+// bad
+class Dragon {
+  get age() {
+    // ...
+  }
+
+  set age(value) {
+    // ...
+  }
+}
+
+// good
+class Dragon {
+  getAge() {
+    // ...
+  }
+
+  setAge(value) {
+    // ...
+  }
+}
+
+```
+
+### 24.3 如果属性是布尔值，使用 isVal() 或 hasVal()
+
+```javascrpt
+
+// bad
+if (!dragon.age()) {
+  return false;
+}
+
+// good
+if (!dragon.hasAge()) {
+  return false;
+}
+
+```
+
+### 24.4 It’s okay to create get() and set() functions, but be consistent.
+
+```javascript
+
+class Jedi {
+  constructor(options = {}) {
+    const lightsaber = options.lightsaber || 'blue';
+    this.set('lightsaber', lightsaber);
+  }
+
+  set(key, val) {
+    this[key] = val;
+  }
+
+  get(key) {
+    return this[key];
+  }
+}
+
+```
+## Events 事件
+
+> When attaching data payloads to events (whether DOM events or something more proprietary like Backbone events), pass a hash instead of a raw value. This allows a subsequent contributor to add more data to the event payload without finding and updating every handler for the event. For example, instead of:
+
+```javacript
+
+// bad
+$(this).trigger('listingUpdated', listing.id);
+
+// ...
+
+$(this).on('listingUpdated', (e, listingId) => {
+  // do something with listingId
+});
+
+```
+prefer:
+
+```javacript
+
+// good
+$(this).trigger('listingUpdated', { listingId: listing.id });
+
+// ...
+
+$(this).on('listingUpdated', (e, data) => {
+  // do something with data.listingId
+});
+
+```
+
+## JQuery
+
+### 26.1 jquery对象的前缀$
+
+> Prefix jQuery object variables with a $
+
+```javascript
+
+// bad
+const sidebar = $('.sidebar');
+
+// good
+const $sidebar = $('.sidebar');
+
+// good
+const $sidebarBtn = $('.sidebar-btn');
+
+```
+### 26.2 Cache jQuery lookups. 缓存jquery查找
+
+```javascript
+
+// bad
+function setSidebar() {
+  $('.sidebar').hide();
+
+  // ...
+
+  $('.sidebar').css({
+    'background-color': 'pink',
+  });
+}
+
+// good
+function setSidebar() {
+  const $sidebar = $('.sidebar');
+  $sidebar.hide();
+
+  // ...
+
+  $sidebar.css({
+    'background-color': 'pink',
+  });
+}
+
+```
+
+### 26.3 For DOM queries use Cascading $('.sidebar ul') or parent > child $('.sidebar > ul')
+
+###  26.4 Use find with scoped jQuery object queries.
+
+```javascript
+
+// bad
+$('ul', '.sidebar').hide();
+
+// bad
+$('.sidebar').find('ul').hide();
+
+// good
+$('.sidebar ul').hide();
+
+// good
+$('.sidebar > ul').hide();
+
+// good
+$sidebar.find('ul').hide();
+
+```
+
