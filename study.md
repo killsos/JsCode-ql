@@ -2166,3 +2166,596 @@ class Calculator extends Abacus {
 }
 
 ```
+
+## 空格
+
+### 19.1 Use soft tabs (space character) set to 2 spaces
+
+```javascript
+
+// bad
+function foo() {
+∙∙∙∙let name;
+}
+
+// bad
+function bar() {
+∙let name;
+}
+
+// good
+function baz() {
+∙∙let name;
+}
+
+```
+
+### 19.2 大括号前必有一个空格
+
+```javascript
+
+// bad
+function test(){
+  console.log('test');
+}
+
+// good
+function test() {
+  console.log('test');
+}
+
+// bad
+dog.set('attr',{
+  age: '1 year',
+  breed: 'Bernese Mountain Dog',
+});
+
+// good
+dog.set('attr', {
+  age: '1 year',
+  breed: 'Bernese Mountain Dog',
+});
+
+```
+
+### 19.3 控制语句的圆括号前后各一个空格 函数的参数中 函数名调用和声明 无空格
+
+>Place 1 space before the opening parenthesis in control statements (if, while etc.). Place no space between the argument list and the function name in function calls and declarations.
+
+```javascript
+// bad
+if(isJedi) {
+  fight ();
+}
+
+// good
+if (isJedi) {
+  fight();
+}
+
+// bad
+function fight () {
+  console.log ('Swooosh!');
+}
+
+// good
+function fight() {
+  console.log('Swooosh!');
+}
+```
+
+### 19.4 运算符前后各一个空格
+
+```javascript
+
+// bad
+const x=y+5;
+
+// good
+const x = y + 5;
+
+```
+### 19.5 End files with a single newline character
+
+```javascript
+
+// bad
+import { es6 } from './AirbnbStyleGuide';
+  // ...
+export default es6;
+
+// bad
+import { es6 } from './AirbnbStyleGuide';
+  // ...
+export default es6;↵
+↵
+
+// good
+import { es6 } from './AirbnbStyleGuide';
+  // ...
+export default es6;↵
+
+```
+
+### 19.6 利用缩进排列链式调用
+
+> Use indentation when making long method chains (more than 2 method chains). Use a leading dot, which emphasizes that the line is a method call, not a new statement.
+
+```javascript
+// bad
+$('#items').find('.selected').highlight().end().find('.open').updateCount();
+
+// bad
+$('#items').
+  find('.selected').
+    highlight().
+    end().
+  find('.open').
+    updateCount();
+
+// good
+$('#items')
+  .find('.selected')
+    .highlight()
+    .end()
+  .find('.open')
+    .updateCount();
+
+// bad
+const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
+    .attr('width', (radius + margin) * 2).append('svg:g')
+    .attr('transform', `translate(${radius + margin},${radius + margin})`)
+    .call(tron.led);
+
+// good
+const leds = stage.selectAll('.led')
+    .data(data)
+  .enter().append('svg:svg')
+    .classed('led', true)
+    .attr('width', (radius + margin) * 2)
+  .append('svg:g')
+    .attr('transform', `translate(${radius + margin},${radius + margin})`)
+    .call(tron.led);
+
+// good
+const leds = stage.selectAll('.led').data(data);
+
+```
+
+### 19.7 大括号后加一个空白行 或 新语句之前
+
+>Leave a blank line after blocks and before the next statement
+
+
+```javacript
+// bad
+if (foo) {
+  return bar;
+}
+return baz;
+
+// good
+if (foo) {
+  return bar;
+}
+
+return baz;
+
+// bad
+const obj = {
+  foo() {
+  },
+  bar() {
+  },
+};
+return obj;
+
+// good
+const obj = {
+  foo() {
+  },
+
+  bar() {
+  },
+};
+
+return obj;
+
+// bad
+const arr = [
+  function foo() {
+  },
+  function bar() {
+  },
+];
+return arr;
+
+// good
+const arr = [
+  function foo() {
+  },
+
+  function bar() {
+  },
+];
+
+return arr;
+
+```
+
+### 19.8 不要在块里填充空白行
+
+>Do not pad your blocks with blank lines
+
+```javascript
+
+// bad
+function bar() {
+
+  console.log(foo);
+
+}
+
+// bad
+if (baz) {
+
+  console.log(qux);
+} else {
+  console.log(foo);
+
+}
+
+// bad
+class Foo {
+
+  constructor(bar) {
+    this.bar = bar;
+  }
+}
+
+// good
+function bar() {
+  console.log(foo);
+}
+
+// good
+if (baz) {
+  console.log(qux);
+} else {
+  console.log(foo);
+
+
+```
+### 19.9 不要在圆括号填充空格
+
+> Do not add spaces inside parentheses.
+
+```javacript
+
+// bad
+function bar( foo ) {
+  return foo;
+}
+
+// good
+function bar(foo) {
+  return foo;
+}
+
+// bad
+if ( foo ) {
+  console.log(foo);
+}
+
+// good
+if (foo) {
+  console.log(foo);
+}
+
+```
+
+### 19.10 不要在中括号开始填充空格
+
+
+> Do not add spaces inside brackets
+
+```javacript
+
+// bad
+const foo = [ 1, 2, 3 ];
+console.log(foo[ 0 ]);
+
+// good
+const foo = [1, 2, 3];
+console.log(foo[0]);
+
+```
+
+### 19.11 对象的花括号前加空格
+
+>Add spaces inside curly braces
+
+```javascript
+
+// bad
+const foo = {clark: 'kent'};
+
+// good
+const foo = { clark: 'kent' };
+
+```
+
+### 19.12 避免一个行超过100字符包括空格
+
+```javascript
+// bad
+const foo = jsonData && jsonData.foo && jsonData.foo.bar && jsonData.foo.bar.baz && jsonData.foo.bar.baz.quux && jsonData.foo.bar.baz.quux.xyzzy;
+
+// bad
+$.ajax({ method: 'POST', url: 'https://airbnb.com/', data: { name: 'John' } }).done(() => console.log('Congratulations!')).fail(() => console.log('You have failed this city.'));
+
+// good
+const foo = jsonData
+  && jsonData.foo
+  && jsonData.foo.bar
+  && jsonData.foo.bar.baz
+  && jsonData.foo.bar.baz.quux
+  && jsonData.foo.bar.baz.quux.xyzzy;
+
+// good
+$.ajax({
+  method: 'POST',
+  url: 'https://airbnb.com/',
+  data: { name: 'John' },
+})
+  .done(() => console.log('Congratulations!'))
+  .fail(() => console.log('You have failed this city.'));
+
+```
+
+## Commas 逗号
+
+### 20.1 逗号放在后面
+
+```javascript
+
+// bad
+const story = [
+    once
+  , upon
+  , aTime
+];
+
+// good
+const story = [
+  once,
+  upon,
+  aTime,
+];
+
+// bad
+const hero = {
+    firstName: 'Ada'
+  , lastName: 'Lovelace'
+  , birthYear: 1815
+  , superPower: 'computers'
+};
+
+// good
+const hero = {
+  firstName: 'Ada',
+  lastName: 'Lovelace',
+  birthYear: 1815,
+  superPower: 'computers',
+};
+
+```
+### 20.2 Additional trailing comma
+
+>Why? This leads to cleaner git diffs. Also, transpilers like Babel will remove the additional trailing comma in the transpiled code which means you don’t have to worry about the trailing comma problem in legacy browsers.
+
+```javascript
+
+// bad - git diff without trailing comma
+const hero = {
+     firstName: 'Florence',
+-    lastName: 'Nightingale'
++    lastName: 'Nightingale',
++    inventorOf: ['coxcomb chart', 'modern nursing']
+};
+
+// good - git diff with trailing comma
+const hero = {
+     firstName: 'Florence',
+     lastName: 'Nightingale',
++    inventorOf: ['coxcomb chart', 'modern nursing'],
+};
+
+
+// bad
+const hero = {
+  firstName: 'Dana',
+  lastName: 'Scully'
+};
+
+const heroes = [
+  'Batman',
+  'Superman'
+];
+
+// good
+const hero = {
+  firstName: 'Dana',
+  lastName: 'Scully',
+};
+
+const heroes = [
+  'Batman',
+  'Superman',
+];
+
+// bad
+function createHero(
+  firstName,
+  lastName,
+  inventorOf
+) {
+  // does nothing
+}
+
+// good
+function createHero(
+  firstName,
+  lastName,
+  inventorOf,
+) {
+  // does nothing
+}
+
+// good (note that a comma must not appear after a "rest" element)
+function createHero(
+  firstName,
+  lastName,
+  inventorOf,
+  ...heroArgs
+) {
+  // does nothing
+}
+
+// bad
+createHero(
+  firstName,
+  lastName,
+  inventorOf
+);
+
+// good
+createHero(
+  firstName,
+  lastName,
+  inventorOf,
+);
+
+// good (note that a comma must not appear after a "rest" element)
+createHero(
+  firstName,
+  lastName,
+  inventorOf,
+  ...heroArgs
+
+```
+
+## Semicolons 分号
+
+### 21.1
+
+```javascript
+
+// bad
+(function () {
+  const name = 'Skywalker'
+  return name
+})()
+
+// good
+(function () {
+  const name = 'Skywalker';
+  return name;
+}());
+
+// good, but legacy (guards against the function becoming an argument when two files with IIFEs are concatenated)
+;((() => {
+  const name = 'Skywalker';
+  return name;
+})());
+
+```
+
+## 类型转换
+
+* 在语句开始时执行类型转换。
+
+* 字符串转换
+
+```javacipt
+
+// => this.reviewScore = 9;
+
+// bad
+const totalScore = new String(this.reviewScore); // typeof totalScore is "object" not "string"
+
+// bad
+const totalScore = this.reviewScore + ''; // invokes this.reviewScore.valueOf()
+
+// bad
+const totalScore = this.reviewScore.toString(); // isn’t guaranteed to return a string
+
+// good
+const totalScore = String(this.reviewScore);
+
+```
+* 数字转换  使用parseInt带上基数
+
+```javascript
+
+const inputValue = '4';
+
+// bad
+const val = new Number(inputValue);
+
+// bad
+const val = +inputValue;
+
+// bad
+const val = inputValue >> 0;
+
+// bad
+const val = parseInt(inputValue);
+
+// good
+const val = Number(inputValue);
+
+// good
+const val = parseInt(inputValue, 10);
+
+```
+
+* 如果因为某些原因 parseInt 成为你所做的事的瓶颈而需要使用位操作解决性能问题时，留个注释说清楚原因和你的目的。
+
+```javacript
+
+// good
+/**
+ * parseInt was the reason my code was slow.
+ * Bitshifting the String to coerce it to a
+ * Number made it a lot faster.
+ */
+var val = inputValue >> 0;
+
+```
+
+* note 小心使用位操作运算符。数字会被当成 64 位值，但是位操作运算符总是返回 32 位的整数（source）。位操作处理大于 32 位的整数值时还会导致意料之外的行为。讨论。最大的 32 位整数是 2,147,483,647：
+
+```javascript
+
+2147483647 >> 0 //=> 2147483647
+2147483648 >> 0 //=> -2147483648
+2147483649 >> 0 //=> -2147483647
+
+```
+* 布尔值
+
+```javacript
+
+var age = 0;
+
+// bad
+var hasAge = new Boolean(age);
+
+// good
+var hasAge = Boolean(age);
+
+// good
+var hasAge = !!age;
+
+```
